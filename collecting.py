@@ -41,7 +41,6 @@ def prepare_items(response):
             products.append({
                 'Бренд': product.get('brand', None),
                 'Наименование': product.get('name', None),
-                'Скидка': product.get('sale', None),
                 'Цена со скидкой': float(product.get('salePriceU', None)) / 100 if
                 product.get('salePriceU', None) != None else None,
                 'Артикул, id': product.get('id', None),
