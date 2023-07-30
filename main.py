@@ -7,27 +7,27 @@ from table_compared import compared
 
 
 def save_in_excel(data_list, path):
-    try:
-        workbook = load_workbook(path)
-        sheet = workbook.active
-    except FileNotFoundError:
-        workbook = Workbook()
-        sheet = workbook.active
+        try:
+            workbook = load_workbook(path)
+            sheet = workbook.active
+        except FileNotFoundError:
+            workbook = Workbook()
+            sheet = workbook.active
 
-    headers = list(data_list[0].keys())
+        headers = list(data_list[0].keys())
 
-    if sheet.max_row == 1:
-        for col_idx, header in enumerate(headers, start=1):
-            cell = sheet.cell(row=1, column=col_idx, value=header)
+        if sheet.max_row == 1:
+            for col_idx, header in enumerate(headers, start=1):
+                cell = sheet.cell(row=1, column=col_idx, value=header)
 
-    next_row = sheet.max_row + 1
+        next_row = sheet.max_row + 1
 
-    for item in data_list:
-        for col_idx, header in enumerate(headers, start=1):
-            cell = sheet.cell(row=next_row, column=col_idx, value=item[header])
-        next_row += 1
+        for item in data_list:
+            for col_idx, header in enumerate(headers, start=1):
+                cell = sheet.cell(row=next_row, column=col_idx, value=item[header])
+            next_row += 1
 
-    workbook.save(path)
+        workbook.save(path)
 
 
 def second_save(data_list, original_path, compared_path):
@@ -38,12 +38,14 @@ def second_save(data_list, original_path, compared_path):
 original_table = 'original.xlsx'
 compared_table = 'compared.xlsx'
 
-counter = 1
-while True:
-    if hoarder(counter):
-        save_in_excel(hoarder(counter), original_table)
-        counter += 1
-    else:
-        break
+
+def main():
+    count = 1
+    while True:
+        if hoarder(count):
+            save_in_excel(hoarder(count), original_table)
+            count += 1
+        else:
+            break
 
 
