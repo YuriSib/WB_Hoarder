@@ -1,14 +1,17 @@
 import telebot
 
-from main import second_save
+from main import save_in_excel, pars_and_save
 from collecting import hoarder
+from table_compared import compared
 
 bot = telebot.TeleBot('6419841809:AAFEiToc-LKefUbh7nkzEiusYGnHgA0NAK8')
 
+
 @bot.message_handler(commands=['start'])
-def main(message):
+def test(message):
     chat_id = message.chat.id
     bot.reply_to(message, f"Your chat ID is: {chat_id}")
+
 
 bot.send_message(674796107, "Произошло какое-то событие!")
 
@@ -17,5 +20,11 @@ bot.polling(none_stop=True)
 original_table = 'original.xlsx'
 compared_table = 'compared.xlsx'
 
-hoarder()
-second_save()
+# list_dumping = []
+
+pars_and_save(original_table)
+while True:
+    pars_and_save(compared_table)
+    list_dumping = compared(original_table, compared_table, 20)
+    for product in list_dumping:
+        bot.send_message(674796107, f'Товар: {product[0]}, id: {product[1]} ')
