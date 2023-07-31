@@ -22,12 +22,16 @@ compared_table = 'compared.xlsx'
 
 
 while True:
+    try:
+        os.remove(compared_table)
+    except FileNotFoundError:
+        pass
     pars_and_save(compared_table)
     list_dumping = compared(original_table, compared_table, 1)
     for product in list_dumping:
         bot.send_message(674796107, f'Товар: {product[0]}, id: {product[1]} \n упал в цене на {product[2]} %. \n'
                                     f'Было: {product[3]} руб., стало: {product[4]} руб.')
-    os.remove(compared_table)
 
 
-bot.polling(none_stop=True)
+
+# bot.polling(none_stop=True)
