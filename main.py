@@ -47,5 +47,3 @@ def pars_and_save(table):
         else:
             break
 
-
-pars_and_save(original_table)
