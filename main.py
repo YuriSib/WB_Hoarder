@@ -39,11 +39,11 @@ original_table = 'original.xlsx'
 compared_table = 'compared.xlsx'
 
 
-def main():
+def pars_and_save(table):
     count = 1
     while True:
         if hoarder(count):
-            save_in_excel(hoarder(count), original_table)
+            save_in_excel(hoarder(count), table)
             count += 1
         else:
             break

@@ -26,7 +26,7 @@ def get_category(page):
         'sec-ch-ua-platform': '"Windows"',
     }
 
-    response = requests.get(url=url, headers=headers, proxies=proxies, timeout=10)
+    response = requests.get(url=url, headers=headers, proxies=proxies, timeout=30)
 
     return response.json()
 

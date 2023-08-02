@@ -1,5 +1,6 @@
 import telebot
 import os
+import time
 
 from main import save_in_excel, pars_and_save
 from collecting import hoarder
@@ -21,13 +22,22 @@ original_table = 'original.xlsx'
 compared_table = 'compared.xlsx'
 
 
-while True:
-    pars_and_save(compared_table)
-    list_dumping = compared(original_table, compared_table, 1)
-    for product in list_dumping:
-        bot.send_message(674796107, f'Товар: {product[0]}, id: {product[1]} \n упал в цене на {product[2]} %. \n'
-                                    f'Было: {product[3]} руб., стало: {product[4]} руб.')
-    os.remove(compared_table)
+def collecting(original, compared_, percent, sek):
+    if os.path.exists(original):
+        while True:
+            pars_and_save(compared_)
+            list_dumping = compared(original, compared_, percent)
+            for product in list_dumping:
+                bot.send_message(674796107, f'Товар: {product[0]}, id: {product[1]} \n упал в цене на {product[2]} %. \n'
+                                            f'Было: {product[3]} руб., стало: {product[4]} руб.')
+            os.remove(compared_)
+            time.sleep(sek)
+    else:
+        pars_and_save(original)
+        time.sleep(sek)
 
 
-bot.polling(none_stop=True)
+collecting(original_table, compared_table, 5, 300)
+
+
+# bot.polling(none_stop=True)
