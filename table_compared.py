@@ -3,13 +3,16 @@ import pandas as pd
 
 
 def excel_to_dict(file_path_):
-    df = pd.read_excel(file_path_)
-    data_dict_ = {}
+    try:
+        df = pd.read_excel(file_path_)
+        data_dict_ = {}
 
-    for col in df.columns:
-        data_dict_[col] = df[col].tolist()
+        for col in df.columns:
+            data_dict_[col] = df[col].tolist()
 
-    return data_dict_
+        return data_dict_
+    except FileNotFoundError:
+        print('Одного из сравниваемых файлов не существует!')
 
 
 def export_excel(worksheet, value, column, row):
