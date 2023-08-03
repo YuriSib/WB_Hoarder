@@ -1,9 +1,9 @@
 from openpyxl import Workbook, load_workbook
-import pandas as pd
+import openpyxl
+import time
 
 from collecting import hoarder
 from openpyxl.utils.dataframe import dataframe_to_rows
-# from table_compared import compared
 
 
 def save_in_excel(data_list, path):
@@ -29,21 +29,40 @@ def save_in_excel(data_list, path):
     workbook.save(path)
 
 
-# def second_save(data_list, original_path, compared_path):
-#     save_in_excel(data_list, compared_path)
-#     compared(original_path, compared_path)
+def changes_prise_in_table(path, row, column, value):
+    workbook = load_workbook(path)
+    sheet = workbook.active
+    sheet.cell(row=row, column=column, value=value)
+    workbook.save(path)
 
 
-original_table = 'original.xlsx'
-compared_table = 'compared.xlsx'
+def find_value_row(file_path, value):
+    workbook = openpyxl.load_workbook(file_path)
+    sheet = workbook.active
+
+    for row in sheet.iter_rows():
+        for cell in row:
+            if cell.value == value:
+                return cell.row
+
+    return None
 
 
 def pars_and_save(table):
+    specification_list = []
     count = 1
     while True:
         if hoarder(count):
-            save_in_excel(hoarder(count), table)
+            specification = hoarder(count)
+            save_in_excel(specification, table)
+            specification_list.append(specification)
             count += 1
         else:
             break
+    return specification_list
 
+
+# original_table = 'original.xlsx'
+# compared_table = 'compared.xlsx'
+#
+# changes_prise_in_table(compared_table, 1, 2, 'Prise was changes!')

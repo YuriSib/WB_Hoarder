@@ -1,6 +1,5 @@
-import pandas as pd
 import requests
-import openpyxl
+from bs4 import BeautifulSoup
 
 proxies = {
     'http': 'http://1257420-all-country-DE:20h1gvhuvx@62.112.11.204:55071',
@@ -26,7 +25,7 @@ def get_category(page):
         'sec-ch-ua-platform': '"Windows"',
     }
 
-    response = requests.get(url=url, headers=headers, proxies=proxies, timeout=30)
+    response = requests.get(url=url, headers=headers, proxies=proxies, timeout=45)
 
     return response.json()
 
