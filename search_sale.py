@@ -26,11 +26,12 @@ def vi_sale(url):
     html = html_obj(url)
     soup = BeautifulSoup(html, 'lxml')
     sale_ = soup.find('div', class_='df5X3i').get_text(strip=True)
+    sale_ = ''.join(filter(str.isdigit, sale_))
 
-    return sale_
+    return int(sale_)
 
 
-# qwery = 'Труборасширитель VST-22 для труб 38, 12, 58, 34, 78'
+# qwery = 'Тепловая пушка электрическая ТЭПК-2000'
 # sale = vi_sale(ya_search(qwery))
 # print(sale)
 

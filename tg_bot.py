@@ -18,22 +18,18 @@ def test(message):
     bot.reply_to(message, f"Your chat ID is: {chat_id}")
 
 
-bot.send_message(674796107, "Бот запущен!")
-
-
-original_table = 'original.xlsx'
-compared_table = 'compared.xlsx'
-
-
 def collecting(original, compared_, percent, sleep):
+    bot.send_message(674796107, "Бот запущен!")
     if os.path.exists(original):
         while True:
+            # if os.path.exists(compared_table):
+            #     os.remove(compared_)
             # pars_and_save(compared_)
             list_dumping = compared(original_table, compared_, percent)
             for product in list_dumping:
                 try:
                     vi_price = vi_sale(ya_search(product[0]))
-                    if vi_price > product[3]:
+                    if vi_price > product[4]:
                         bot.send_message(674796107, f'Товар: {product[0]}, \n id: {product[1]} \n '
                                                     f'упал в цене на {product[2]}%. \n'
                                                     f'Было: {product[3]} руб., стало: {product[4]}руб.\n'
@@ -48,12 +44,14 @@ def collecting(original, compared_, percent, sleep):
                                                 f'упал в цене на {product[2]}%. \n'
                                                 f'Было: {product[3]} руб., стало: {product[4]}руб.\n')
 
-            os.remove(compared_)
             time.sleep(sleep)
     else:
         pars_and_save(original)
         time.sleep(sleep)
 
+
+original_table = 'original.xlsx'
+compared_table = 'compared.xlsx'
 
 collecting(original_table, compared_table, 20, 1200)
 
