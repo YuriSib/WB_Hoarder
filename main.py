@@ -6,6 +6,17 @@ from collecting import hoarder
 from openpyxl.utils.dataframe import dataframe_to_rows
 
 
+def timing(func):
+    def wrapper(*args, **kwargs):
+        start_time = time.time()
+        result = func(*args, **kwargs)
+        end_time = time.time()
+        execution_time = end_time - start_time
+        print(f"Время выполнения функции {func.__name__}: {execution_time:.6f} секунд")
+        return result
+    return wrapper
+
+
 def save_in_excel(data_list, path):
     try:
         workbook = load_workbook(path)
@@ -48,6 +59,7 @@ def find_value_row(file_path, value):
     return None
 
 
+@timing
 def pars_and_save(table):
     specification_list = []
     count = 1

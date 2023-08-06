@@ -3,6 +3,7 @@ from selenium_stealth import stealth
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 
+
 def html_obj(first, second=None):
         options = webdriver.ChromeOptions()
         options.add_argument("start-maximized")

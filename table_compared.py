@@ -1,5 +1,17 @@
 import openpyxl
 import pandas as pd
+import time
+
+
+def timing_decorator(func):
+    def wrapper(*args, **kwargs):
+        start_time = time.time()
+        result = func(*args, **kwargs)
+        end_time = time.time()
+        execution_time = end_time - start_time
+        print(f"Время выполнения функции {func.__name__}: {execution_time:.6f} секунд")
+        return result
+    return wrapper
 
 
 def excel_to_dict(file_path_):
@@ -19,6 +31,7 @@ def export_excel(worksheet, value, column, row):
     worksheet.cell(row=row, column=column, value=value)
 
 
+@timing_decorator
 def compared(original, compared_, percent):
     data_dict = excel_to_dict(original)
     article_list = data_dict['Артикул, id']
@@ -49,3 +62,6 @@ def compared(original, compared_, percent):
     return list_dumping
 
 
+def compared_vi(original):
+    workbook = openpyxl.load_workbook(original)
+    sheet = workbook.active
