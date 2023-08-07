@@ -11,6 +11,8 @@ def html_obj(first, second=None):
         # options.add_argument("--headless")
 
         options.add_experimental_option("excludeSwitches", ["enable-automation"])
+        # Пробуем избежать вывода сообщений об уставершей версии в консоль
+        options.add_experimental_option('excludeSwitches', ['enable-logging'])
         options.add_experimental_option('useAutomationExtension', False)
         driver = webdriver.Chrome(options=options)
 

@@ -1,5 +1,4 @@
 import requests
-from bs4 import BeautifulSoup
 
 proxies = {
     'http': 'http://1257420-all-country-DE:20h1gvhuvx@62.112.11.204:55071',

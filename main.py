@@ -61,6 +61,7 @@ def find_value_row(file_path, value):
 
 @timing
 def pars_and_save(table):
+    print('Функция "pars_and_save()" сканирует категерию ВБ и сохраняет данные о товарах в таблицу ...')
     specification_list = []
     count = 1
     while True:

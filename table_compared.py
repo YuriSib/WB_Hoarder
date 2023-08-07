@@ -33,6 +33,7 @@ def export_excel(worksheet, value, column, row):
 
 @timing_decorator
 def compared(original, compared_, percent):
+    print('Функция "compared()" сравнивает данные таблиц ...')
     data_dict = excel_to_dict(original)
     article_list = data_dict['Артикул, id']
     price_list = data_dict['Цена со скидкой']
@@ -49,7 +50,10 @@ def compared(original, compared_, percent):
     for idx_2, id_2 in enumerate(article_list2):
         if id_2 in article_list:
             idx_ = article_list.index(id_2)
-            difference = (price_list[idx_] - price_list2[idx_2]) / price_list[idx_] * 100
+            try:
+                difference = (price_list[idx_] - price_list2[idx_2]) / price_list[idx_] * 100
+            except ZeroDivisionError:
+                difference = 0
             if difference > percent:
                                 #   [название товара,  id,   % изменения цены,       первая цена,      текущая цена  ]
                 list_dumping.append([name_list[idx_], id_2, round(difference, 2), price_list[idx_], price_list2[idx_2]])

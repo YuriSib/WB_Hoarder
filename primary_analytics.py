@@ -23,17 +23,13 @@ def link_collecting(table):
     list_link_ = []
     for row in range(2, sheet.max_row-1):
         cell_value = sheet.cell(row=row, column=2).value
-        list_link_vi, list_link_ozon = ya_search(cell_value, 20)
-        count = 5
-        for link in list_link:
+        links, list_link_vi, list_link_ozon = ya_search(cell_value, 20)
+        for link in links:
             if 'https://market.yandex.ru' not in link and 'https://www.vseinstrumenti.ru' not in link \
                     and 'https://www.WildBerries.ru' not in link:
-                sheet.cell(row=row, column=count, value=link)
-                list_link_vi.append(link)
-                count += 1
-    workbook.save(table)
+                list_link_.append(link)
 
-    return list_link_vi
+    return list_link_
 
 
 def link_separation(list_):
@@ -50,6 +46,8 @@ def link_separation(list_):
     for element, count in sorted_elements:
         print(f"{element}: {count}")
 
-# test_table = 'Test.xlsx'
-# list_link = link_collecting(test_table)
+
+test_table = 'compared — копия.xlsx'
+list_link = link_collecting(test_table)
+link_separation(list_link)
 
