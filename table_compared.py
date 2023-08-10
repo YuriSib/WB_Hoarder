@@ -55,8 +55,9 @@ def compared(original, compared_, percent):
             except ZeroDivisionError:
                 difference = 0
             if difference > percent:
-                                #   [название товара,  id,   % изменения цены,       первая цена,      текущая цена  ]
-                list_dumping.append([name_list[idx_], id_2, round(difference, 2), price_list[idx_], price_list2[idx_2]])
+                                #   [название товара, id, % изменения цены, первая цена, текущая цена, №]
+                list_dumping.append([name_list[idx_], id_2, round(difference, 2), price_list[idx_], price_list2[idx_2],
+                                     idx_])
             export_excel(sheet, price_list2[idx_2], 5, idx_ + 2)
             export_excel(sheet, difference, 6, idx_ + 2)
             export_excel(sheet, id_2, 7, idx_ + 2)

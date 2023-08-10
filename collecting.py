@@ -5,9 +5,10 @@ proxies = {
 }
 
 
-def get_category(page):
+def get_category(url, page):
     # url = f'https://catalog.wb.ru/catalog/repair10/catalog?appType=1&limit=100&cat=128968&curr=rub&dest=-1257786&regions=80,38,83,4,64,33,68,70,30,40,86,75,69,22,1,31,66,110,48,71,114&sort=popular&spp=0&uclusters=0&page={page}'
-    url = f'https://catalog.wb.ru/catalog/repair10/catalog?appType=1&cat=128968&curr=rub&dest=-1257786&page=1&regions=80,38,83,4,64,33,68,70,30,40,86,75,69,22,1,31,66,110,48,71,114&sort=popular&spp=0&uclusters=0headers=headers&page={page}'
+    # url = f'https://catalog.wb.ru/catalog/repair10/catalog?appType=1&cat=128968&curr=rub&dest=-1257786&page=1&regions=80,38,83,4,64,33,68,70,30,40,86,75,69,22,1,31,66,110,48,71,114&sort=popular&spp=0&uclusters=0headers=headers&page={page}'
+    url = f'{url}{page}'
 
     headers = {
         'Accept': '*/*',
@@ -24,7 +25,7 @@ def get_category(page):
         'sec-ch-ua-platform': '"Windows"',
     }
 
-    response = requests.get(url=url, headers=headers, proxies=proxies, timeout=45)
+    response = requests.get(url=url, headers=headers, proxies=proxies, timeout=60)
 
     return response.json()
 
@@ -47,8 +48,8 @@ def prepare_items(response):
     return products
 
 
-def hoarder(page):
-    response = get_category(page)
+def hoarder(url, page):
+    response = get_category(url, page)
     products = prepare_items(response)
 
     return products

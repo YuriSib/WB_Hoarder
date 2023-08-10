@@ -17,29 +17,6 @@ def timing(func):
     return wrapper
 
 
-def save_in_excel(data_list, path):
-    try:
-        workbook = load_workbook(path)
-        sheet = workbook.active
-    except FileNotFoundError:
-        workbook = Workbook()
-        sheet = workbook.active
-    headers = list(data_list[0].keys())
-
-    if sheet.max_row == 1:
-        for col_idx, header in enumerate(headers, start=1):
-            cell = sheet.cell(row=1, column=col_idx, value=header)
-
-    next_row = sheet.max_row + 1
-
-    for item in data_list:
-        for col_idx, header in enumerate(headers, start=1):
-            cell = sheet.cell(row=next_row, column=col_idx, value=item[header])
-        next_row += 1
-
-    workbook.save(path)
-
-
 def changes_prise_in_table(path, row, column, value):
     workbook = load_workbook(path)
     sheet = workbook.active
@@ -60,14 +37,34 @@ def find_value_row(file_path, value):
 
 
 @timing
-def pars_and_save(table):
+def pars_and_save(url, table):
     print('Функция "pars_and_save()" сканирует категерию ВБ и сохраняет данные о товарах в таблицу ...')
     specification_list = []
     count = 1
     while True:
-        if hoarder(count):
-            specification = hoarder(count)
-            save_in_excel(specification, table)
+        if hoarder(url, count):
+            specification = hoarder(url, count)
+            # save_in_excel(specification, table)
+            try:
+                workbook = load_workbook(table)
+                sheet = workbook.active
+            except FileNotFoundError:
+                workbook = Workbook()
+                sheet = workbook.active
+            headers = list(specification[0].keys())
+
+            if sheet.max_row == 1:
+                for col_idx, header in enumerate(headers, start=1):
+                    sheet.cell(row=1, column=col_idx, value=header)
+
+            next_row = sheet.max_row + 1
+
+            for item in specification:
+                for col_idx, header in enumerate(headers, start=1):
+                    sheet.cell(row=next_row, column=col_idx, value=item[header])
+                next_row += 1
+
+            workbook.save(table)
             specification_list.append(specification)
             count += 1
         else:

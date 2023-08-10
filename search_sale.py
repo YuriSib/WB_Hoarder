@@ -43,7 +43,7 @@ def vi_sale(url):
         sale_ = soup.find('div', class_='df5X3i').get_text(strip=True)
         sale_ = ''.join(filter(str.isdigit, sale_))
         name = soup.find('div', class_='pKTE7p').get_text(strip=True)
-        return int(sale_), name
+        return int(sale_)# name
     except SessionNotCreatedException:
         print('Ошибка создания сессии!')
         return 0
@@ -57,13 +57,13 @@ def ozon_sale(url):
         html = html_obj(url)
         soup = BeautifulSoup(html, 'lxml')
         if '/reviews' in url:
-            sale_ = soup.find('div', class_='qk3 k5q q6k').get_text(strip=True)
-            name = soup.find('div', class_='y9k').get_text(strip=True)
+            sale_ = soup.find('div', class_='w7k wk9 xk0').get_text(strip=True)
+            name = soup.find('div', class_='z3k').get_text(strip=True)
         else:
-            sale_ = soup.find('div', class_='s0k').get_text(strip=True)
+            sale_ = soup.find('div', class_='kz0').get_text(strip=True)
             name = soup.find('div', class_='webProductHeading').get_text(strip=True)
         sale_ = ''.join(filter(str.isdigit, sale_))
-        return int(sale_), name
+        return int(sale_)# name
     except SessionNotCreatedException:
         print('Ошибка создания сессии!')
         return 0
@@ -73,9 +73,6 @@ def ozon_sale(url):
 
 
 def kuvalda_sale(url):
-    # proxies = {
-    #     'http': 'http://1257420-all-country-DE:20h1gvhuvx@62.112.11.204:55071',
-    # }
     response_ = requests.get(url)
     soup = BeautifulSoup(response_.text, 'lxml')
     sale_ = soup.find('div', class_='product-buy__price-value').get_text(strip=True)
@@ -83,15 +80,6 @@ def kuvalda_sale(url):
     name = soup.find('div', class_='page-header__container container')\
         .get_text(strip=True)
 
-    return int(sale_), name
+    return int(sale_)# name
 
-
-
-
-# http = 'https://www.kuvalda.ru/catalog/2074/product-45565/'
-# print(kuvalda_sale(http))
-
-# qwery = 'Тепловая пушка электрическая ТЭПК-2000'
-# sale = vi_sale(ya_search(qwery))
-# print(sale)
 
