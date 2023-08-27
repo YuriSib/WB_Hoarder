@@ -5,7 +5,7 @@ import time
 
 from selenium.common.exceptions import SessionNotCreatedException, WebDriverException
 
-from selenium_master import html_obj
+from playwright_master import html_obj
 
 
 def ya_search(qwery_, quantity):

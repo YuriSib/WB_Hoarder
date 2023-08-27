@@ -30,6 +30,7 @@ def sleep(time_):
         time.sleep(60)
         print(f'До новой итерации осталось: {time_ - min_} мин.')
 
+
 def collecting(url, original, compared_, percent):
     if os.path.exists(original):
 
